@@ -16,7 +16,7 @@ static int speedUp=[](){
 
 class Solution {
 public:
-    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) { // O(nlogn)
         if (postorder.size()==0 || inorder.size()==0)
             return nullptr;
         return build(postorder,0,postorder.size()-1,inorder,0,inorder.size()-1);
