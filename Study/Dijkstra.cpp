@@ -1,6 +1,5 @@
 #define INF 1000000000
- 
-
+#define N 10
 
 int g[N][N];
 int dist[N];
