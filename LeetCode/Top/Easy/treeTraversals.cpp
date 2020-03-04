@@ -121,6 +121,12 @@ int main() {
     root->right->left = new TreeNode(15);
     root->right->right = new TreeNode(7);
 
+    cout << "      3         " << endl;
+    cout << "   /     \\     " << endl;
+    cout << "  9       20    " << endl;
+    cout << " / \\    /  \\  " << endl;
+    cout << "2   1   15   7  " << endl;
+
     Solution sol;
     cout << "LevelOrderTraversal: ";
     sol.levelOrderTraversal(root);
