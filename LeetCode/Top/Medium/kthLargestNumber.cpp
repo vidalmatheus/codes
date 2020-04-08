@@ -25,7 +25,9 @@ public:
         }
         return -1;
     }
-    int partition (vector<int> &nums,int left, int right){ // the same as in quicksort!!!
+    // The following implementation of quicksort doesn't returns the correct index for the pivot;
+    // Sometimes it works, sometimes it doesn't 
+    int partitionGayle (vector<int> &nums,int left, int right){ // the same as in quicksort!!! 
         int pivot = nums[left + (right-left)/2]; // median point
         while (left<right){
             while (nums[left]<pivot)
@@ -33,25 +35,34 @@ public:
             while (nums[right]>pivot)
                 right--;
             if (left<right){
-                swap(nums,left,right);
+                swap(nums[left],nums[right]);
                 left++;
                 right--;
             }
         }
         return left;
     }
-    void swap (vector<int> &nums,int i,int j){
-        int tmp = nums[i];
-        nums[i] = nums[j];
-        nums[j]=tmp;
+
+    int partition (vector<int> &nums,int left,int right){
+        int pivotIndex = left+(right-left)/2;
+        int pivot = nums[pivotIndex];
+        swap(nums[pivotIndex],nums[right]); // put the median value on right corner an then the code is just like we're already know
+        int i = left;
+        for (int j=left;j<right;j++){
+            if (nums[j]<pivot){
+                swap(nums[i],nums[j]);
+                i++;
+            }
+        }
+        swap(nums[i],nums[right]);
+        return i; 
     }
 };
 // Time: O(n)
 // Space: O(1) --> inplace solution!
 
 int main(){
-
-    vector<int> nums = {1,2,3,4,5,6};
+    vector<int> nums = {3,2,1,5,6,4};
     int k = 2;
     Solution sol;
     cout << sol.findKthLargest(nums,k) << endl;
