@@ -81,7 +81,7 @@ int main(){
     trie.search("de")?(cout << "true\n") : (cout << "false\n");
     trie.search("menezes")?(cout << "true\n") : (cout << "false\n");
     cout << "\n";
-    trie.search("fernanda")?(cout << "true\n") : (cout << "false\n");
+    trie.search("mirley")?(cout << "true\n") : (cout << "false\n");
     trie.search("vida")?(cout << "true\n") : (cout << "false\n");
 
     return 0;
