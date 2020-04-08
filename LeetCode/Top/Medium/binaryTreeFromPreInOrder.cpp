@@ -20,20 +20,24 @@ public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         if (preorder.size()==0 || inorder.size()==0)
             return nullptr;
+
         return build(preorder,0,preorder.size()-1,inorder,0,inorder.size()-1);
     }
 
     TreeNode* build(vector<int> &preorder,int startPreorder,int endPreorder,vector<int> &inorder,int startInorder,int endInorder){
         if (startInorder > endInorder)
             return nullptr;
+
         TreeNode *root = new TreeNode(preorder[startPreorder]); // build root
         int posRoot = -1;
+
         for (int i=startInorder;i<=endInorder;i++){
             if (inorder[i]==root->val){
                 posRoot = i;
                 break;
             }
         }
+        // posRoot-startInorder: # elements of left subtree
         root->left = build(preorder,startPreorder+1,startPreorder+posRoot-startInorder,inorder,startInorder,posRoot-1); // left subtree
         root->right = build(preorder,startPreorder+posRoot-startInorder+1,endPreorder,inorder,posRoot+1,endInorder); // right subtree
         return root;
