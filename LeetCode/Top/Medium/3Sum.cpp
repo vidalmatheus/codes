@@ -8,6 +8,7 @@ static int speedUp=[](){
     cout.tie(nullptr);
     return 0;
 }();
+
 class SolutionBAD { // TIME LIMIT EXCEEDED!!!
 public:
     vector<vector<int>> threeSum(vector<int>& nums) { // Time: O(n^2) - Space: O(n)
@@ -119,6 +120,7 @@ public:
 
     }
 };
+
 
 int main(){
     vector<int> nums = {-1,0,1,2,-1,-4};
