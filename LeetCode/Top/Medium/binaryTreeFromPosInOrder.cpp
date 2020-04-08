@@ -19,20 +19,24 @@ public:
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) { // O(nlogn)
         if (postorder.size()==0 || inorder.size()==0)
             return nullptr;
+
         return build(postorder,0,postorder.size()-1,inorder,0,inorder.size()-1);
     }
 
     TreeNode* build(vector<int> &postorder,int startPostorder,int endPostorder,vector<int> &inorder,int startInorder,int endInorder){ // O(n^2)
         if (startInorder > endInorder)
             return nullptr;
+
         TreeNode *root = new TreeNode(postorder[endPostorder]); // build root
         int posRoot = -1;
+
         for (int i=startInorder;i<=endInorder;i++){
             if (inorder[i]==root->val){
                 posRoot = i;
                 break;
             }
         }
+        // posRoot-startInorder: # elements of left subtree
         root->left = build(postorder,startPostorder,startPostorder+(posRoot-startInorder)-1,inorder,startInorder,posRoot-1); // left subtree
         root->right = build(postorder,startPostorder+(posRoot-startInorder),endPostorder-1,inorder,posRoot+1,endInorder); // right subtree
         return root;
@@ -44,16 +48,19 @@ public:
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
         if (postorder.size()==0 || inorder.size()==0)
             return nullptr;
+
         unordered_map<int,int> m;
         for (int i=0;i<inorder.size();i++){
             m[inorder[i]]=i;
         }
+
         return build(postorder,0,postorder.size()-1,inorder,0,inorder.size()-1,m);
     }
 
     TreeNode* build(vector<int> &postorder,int startPostorder,int endPostorder,vector<int> &inorder,int startInorder,int endInorder,unordered_map<int,int>& m){
         if (startInorder > endInorder)
             return nullptr;
+
         TreeNode *root = new TreeNode(postorder[endPostorder]); // build root
         int posRoot = m[postorder[endPostorder]];
         root->left = build(postorder,startPostorder,startPostorder+(posRoot-startInorder)-1,inorder,startInorder,posRoot-1,m); // left subtree
