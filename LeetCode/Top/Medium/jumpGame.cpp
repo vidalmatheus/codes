@@ -21,7 +21,7 @@ public:
         for (int i=1;i<dp.size();i++){
             for (int j=0;j<i;j++){
                 if (dp[j] && (i-j)<=nums[j])
-                    dp[i]=true|dp[i];
+                    dp[i]=true;
             }
         }
         
