@@ -55,8 +55,24 @@ int main(){
         {0,0,0,1,1},
     };
 
+    cout << "Before: " << endl;
+    for (auto row:grid){
+        for (int e:row){
+            cout << e << " ";
+        }
+        cout << endl;
+    }
+
     Solution sol;
     cout << sol.maxAreaOfIsland(grid) << endl;
+
+    cout << "After: " << endl;
+    for (auto row:grid){
+        for (int e:row){
+            cout << e << " ";
+        }
+        cout << endl;
+    }
 
     return 0;
 }
