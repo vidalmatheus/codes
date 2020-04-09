@@ -15,7 +15,7 @@ struct ListNode {
     ListNode(int x) : val(x), next(nullptr) {}
 };
 
-class Solution {
+class NaiveSolution {
 public:
     ListNode* middleNode(ListNode* head) {
         if (head==nullptr)
@@ -39,6 +39,22 @@ public:
 };
 // Time: O(n)
 // Space: O(1)
+
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        if (head==nullptr)
+            return head;
+    
+        for (ListNode* slow=head,*fast;fast!=nullptr;slow=slow->next,fast=fast->next->next)
+            return slow;
+        
+        return nullptr;
+    }
+};
+// Time: O(n)
+// Space: O(1)
+
 
 int main(){
     ListNode* head = new ListNode(1);
