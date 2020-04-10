@@ -46,10 +46,13 @@ public:
         if (head==nullptr)
             return head;
     
-        for (ListNode* slow=head,*fast;fast!=nullptr;slow=slow->next,fast=fast->next->next)
-            return slow;
-        
-        return nullptr;
+        ListNode* slow=head,*fast=head;
+        while(fast!=nullptr && fast->next!=nullptr){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+            
+        return slow;
     }
 };
 // Time: O(n)
