@@ -61,7 +61,7 @@ public:
     }
 };
 // Time: O(n)
-// Space: O(n), only for the answer, no extra space was needed
+// Space: O(1), only for the answer, no extra space was needed
 
 int main(){
     vector<int> nums = {1,2,3,4};
