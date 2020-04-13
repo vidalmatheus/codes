@@ -55,7 +55,7 @@ static int speedUp=[](){
     return 0;
 }();
 
-class Solution { // 
+class Solution { 
 public:
     int diameterOfBinaryTree(TreeNode* root) {
         if (root==nullptr)
