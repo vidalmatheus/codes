@@ -68,7 +68,7 @@ public:
         if (root==nullptr) return;
         stack<TreeNode *> s;
         TreeNode *curr = root;
-        while (!s.empty() || curr!=nullptr){
+        while (!s.empty() || curr!=nullptr){ //curr!=nullptr it's just to enter at the first time
             while (curr!=nullptr){
                 s.push(curr);
                 curr=curr->left;
