@@ -91,6 +91,8 @@ public:
         for (int i=1;i<=nums.size();i++)
             prefixOddNumber[i] = nums[i-1]%2 ? prefixOddNumber[i-1]+1 : prefixOddNumber[i-1];  
     
+
+        // You could have done this with just one for loop!
         unordered_map<int,int> freq;
         for (int e:prefixOddNumber)
             if (freq.find(e)!=freq.end()) // found
@@ -107,6 +109,36 @@ public:
 };
 // Time: O(n)
 // Space: O(n)
+
+class Solution {
+public:
+    int numberOfSubarrays(vector<int>& nums, int k) {
+        if (nums.size()==0) 
+            return 0;
+        
+        vector<int> prefixOddNumber(nums.size()+1,0);
+        for (int i=1;i<=nums.size();i++)
+            prefixOddNumber[i] = nums[i-1]%2 ? prefixOddNumber[i-1]+1 : prefixOddNumber[i-1];  
+    
+
+        // Now with just one for loop
+        int counter = 0;
+        unordered_map<int,int> freq;
+        for (int e:prefixOddNumber){
+            if (freq.find(e-k)!=freq.end()) // found
+                counter += freq[e-k];
+            if (freq.find(e)!=freq.end()) // found
+                freq[e]++;
+            else freq[e]=1;
+
+        }
+        
+        return counter;
+    }
+};
+// Time: O(n)
+// Space: O(n)
+
 
 int main(){
     vector<int> nums = {1,1,2,1,1};
