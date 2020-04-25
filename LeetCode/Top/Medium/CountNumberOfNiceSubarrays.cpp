@@ -9,7 +9,7 @@ static int speedUp=[](){
     return 0;
 }();
 
-class Solution {
+class SlowSolution {
 public:
     int numberOfSubarrays(vector<int>& nums, int k) {
         if (nums.size()==0) 
@@ -59,7 +59,7 @@ public:
 // Time: O(nlog n)
 // Space: O(n)
 
-class Solution{
+class BragaiaSolution{
 public:
     int numberOfSubarrays(vector<int>& arr, int k) {
     unordered_map<int,int> hashmap;
@@ -81,7 +81,7 @@ public:
 // Time: O(n)
 // Space: O(n)
 
-class Solution {
+class MineSolution {
 public:
     int numberOfSubarrays(vector<int>& nums, int k) {
         if (nums.size()==0) 
@@ -110,7 +110,7 @@ public:
 // Time: O(n)
 // Space: O(n)
 
-class Solution {
+class BestSolution {
 public:
     int numberOfSubarrays(vector<int>& nums, int k) {
         if (nums.size()==0) 
@@ -144,7 +144,7 @@ int main(){
     vector<int> nums = {1,1,2,1,1};
     int k = 3;
 
-    Solution sol;
+    BestSolution sol;
     cout << sol.numberOfSubarrays(nums,k) << endl;
 
     return 0;
