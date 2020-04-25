@@ -9,7 +9,7 @@ static int speedUp=[](){
     return 0;
 }();
 
-class Solution {
+class FirstSolution {
 public:
     int subarraySum(vector<int>& nums, int k) {
         if (nums.size()==0)
@@ -28,6 +28,32 @@ public:
             if (freq.find(e)!=freq.end()) // found
                 freq[e]++;
             else freq[e]=1;
+        }
+    
+        return counter;        
+    }
+};
+// Time: O(n)
+// Space: O(n)
+
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        if (nums.size()==0)
+            return 0;
+        
+        int n = nums.size();
+        unordered_map<int,int> freq;
+        int counter = 0;
+        freq[0] = 1;
+        int prefixSumSoFar = 0;
+        for (int e:nums){
+            prefixSumSoFar += e;
+            if (freq.find(prefixSumSoFar-k)!=freq.end()) // found
+                counter += freq[prefixSumSoFar-k];
+            if (freq.find(prefixSumSoFar)!=freq.end()) // found
+                freq[prefixSumSoFar]++;
+            else freq[prefixSumSoFar]=1;
         }
     
         return counter;        
