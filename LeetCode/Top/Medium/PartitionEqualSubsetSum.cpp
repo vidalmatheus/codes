@@ -74,7 +74,7 @@ globalSum/2: 5.5
         
 */
 
-class Solution {
+class RecursiveSolution {
 public:
     bool canPartition(vector<int>& nums) {
         if (nums.size()==0)
@@ -225,7 +225,7 @@ public:
 // Space: O(SUM)
 
 int main(){
-    vector<int> nums = {1,5,11,5};
+    vector<int> nums{1,5,11,5};
 
     Solution sol;
     sol.canPartition(nums) ? cout << "true\n" : cout << "false\n";
