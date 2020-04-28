@@ -74,8 +74,10 @@ public:
     void add(int value) { // T:O(1) & S:O(1)
         if (hashMap.find(value)!=hashMap.end())
             hashMap[value]++;
-        else hashMap[value]=1;
-        q.push(value);
+        else{
+            hashMap[value]=1;
+            q.push(value);
+        }
     }
 };
 
