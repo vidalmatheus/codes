@@ -23,7 +23,7 @@ public:
     }
 
     void permutation(vector<vector<int>> &ans, vector<int> &nums, int start) {
-        if (start == nums.size()-1) {
+        if (start == nums.size()) {
             ans.push_back(nums);
             return;
         }
