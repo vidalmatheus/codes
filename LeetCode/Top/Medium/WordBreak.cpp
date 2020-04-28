@@ -9,6 +9,14 @@ static int speedUp=[](){
     return 0;
 }();
 
+/*
+rec("leetcode"):
+    rec("code"):
+        rec(""):
+         true
+         
+*/
+
 class WRONGSolution { // This is Wrong!!!
 public:
     bool wordBreak(string s, vector<string>& wordDict) {
@@ -31,22 +39,6 @@ public:
 };
 // Time: O(n+m)
 // Space: O(m)
-
-static int speedUp=[](){
-    std::ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
-    return 0;
-}();
-
-/*
-
-rec("leetcode"):
-    rec("code"):
-        rec(""):
-         true
-         
-*/
 
 class TLESolution { // Time Limit Exceeded
 public:
@@ -74,21 +66,6 @@ public:
 // Time: O(n*m)
 // Space: O(m)
 
-static int speedUp=[](){
-    std::ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
-    return 0;
-}();
-
-/*
-
-rec("leetcode"):
-    rec("code"):
-        rec(""):
-         true
-         
-*/
 
 class Solution { // Dynamic Programming (memoization) - Top-Down
 private:
