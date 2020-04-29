@@ -83,22 +83,35 @@ static int speedUp=[](){
     return 0;
 }();
 
+struct myComparator {
+    bool operator() (pair<vector<int>,char>& e1, pair<vector<int>,char>& e2){
+        if (e1.first[0]==e2.first[0])
+            if (e1.first[1]==e2.first[1])
+                    return e1.second < e2.second;
+            else return e1.first[1] < e2.first[1];
+        else return e1.first[0] < e2.first[0];
+    }
+};
+
 class Solution {
 public:
     int maxNumberHouses(vector<vector<int>>& houses, vector<vector<int>>& clients){
         if (houses.size()==0 || clients.size()==0)
             return 0;
         
-        vector<pair<vector<int>,char>> merged(houses.size()+clients.size());
+        vector<pair<vector<int>,char>> merged;
+        merged.reserve(houses.size()+clients.size());
         for (int i=0;i<houses.size();i++)
-            for (int j=0;j<houses[0].size();j++)
                 merged.push_back({{houses[i][0],houses[i][1]},'H'});
         
         for (int i=0;i<clients.size();i++)
-            for (int j=0;j<clients[0].size();j++)
                 merged.push_back({{clients[i][0],clients[i][1]},'C'});
     
         sort(merged.begin(),merged.end());
+
+        for (auto e:merged)
+            cout << "[" << e.first[0] << "," << e.first[1] << "," << e.second << "]" << " ";
+        cout << endl;
 
         int counter = 0;
         set<int> prices;
@@ -108,7 +121,7 @@ public:
             else { // it's a house
                 if (!prices.empty()){
                     int housePrice = merged[i].first[1];
-                    prices.erase(prices.lower_bound(housePrice));
+                    prices.erase(*prices.lower_bound(housePrice));
                     counter++;
                 }
             }
@@ -121,17 +134,15 @@ public:
 
 int main(){
     vector<vector<int>> houses{
-        {8, 200},
-        {8, 100},
         {10, 100},
-        {30, 700}
+        {2, 200},
+        {30, 300},
     };
 
     vector<vector<int>> clients{
-        {5, 800},
-        {7, 400},
-        {8, 200},
+        {5, 110},
         {9, 500},
+        {20, 400},
     };
 
     Solution sol;
