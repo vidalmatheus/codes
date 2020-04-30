@@ -101,10 +101,10 @@ public:
         
         vector<pair<vector<int>,char>> merged;
         merged.reserve(houses.size()+clients.size());
-        for (int i=0;i<houses.size();i++)
+        for (int i=0;i<(int)houses.size();i++)
                 merged.push_back({{houses[i][0],houses[i][1]},'H'});
         
-        for (int i=0;i<clients.size();i++)
+        for (int i=0;i<(int)clients.size();i++)
                 merged.push_back({{clients[i][0],clients[i][1]},'C'});
     
         sort(merged.begin(),merged.end());
@@ -115,14 +115,17 @@ public:
 
         int counter = 0;
         set<int> prices;
-        for (int i=0;i<merged.size();i++)
+        for (int i=0;i<(int)merged.size();i++)
             if (merged[i].second=='C')
                 prices.insert(merged[i].first[1]);
             else { // it's a house
                 if (!prices.empty()){
                     int housePrice = merged[i].first[1];
-                    prices.erase(*prices.lower_bound(housePrice));
-                    counter++;
+                    auto it = prices.lower_bound(housePrice);
+                    if (it!=prices.end()){
+                        prices.erase(*it);
+                        counter++;
+                    }
                 }
             }
 
@@ -131,6 +134,76 @@ public:
 };
 // Time: O(n*log(n))
 // Space: O(n)
+
+
+/*
+ * Eu fiz assim ó:
+ * Eu alterei a leitura do Hackerrank para ja me dar um vetor com a minha struct
+ *
+ */
+
+
+
+enum typeOfEntry
+{
+    person, house
+};
+
+struct pOrH
+{
+    int size;
+    int price;
+    typeOfEntry type;
+
+    static bool compare(const pOrH & a, const pOrH & b)
+    {
+        if(b.size > a.size)
+        {
+            return true;
+        }
+        else if (b.size == a.size && b.price > a.price)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+};
+
+
+
+/*
+ * Complete the realEstateBroker function below.
+ */
+int realEstateBroker(vector<pOrH> & all) {
+    /*
+     * Write your code here.
+     */
+    int size = all.size();
+    set<int> peoplePrices;
+    std::sort(all.begin(), all.end(), pOrH::compare);
+    int ans = 0;
+    for(int i=0; i<size; i++)
+    {
+        if(all[i].type == person)
+        {
+            peoplePrices.insert(all[i].price);
+        }
+        else
+        {
+            auto iter = peoplePrices.lower_bound(all[i].price);
+            if(iter != peoplePrices.end())
+            {
+                ans++;
+                peoplePrices.erase(iter);
+            }
+        }
+    }
+    
+    return ans;
+}
 
 int main(){
     vector<vector<int>> houses{
