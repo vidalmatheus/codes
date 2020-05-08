@@ -9,7 +9,7 @@ static int speedUp=[](){
     return 0;
 }();
 
-class Solution {
+class FirstSolution {
 public:
     bool checkStraightLine(vector<vector<int>>& coordinates) {
         if (coordinates.size()==2)
@@ -40,6 +40,11 @@ public:
             A = 0;
             B = 1;
             C = P[1];
+        }
+        else if (P[0]==P[1] && Q[0]==Q[1]){
+            A = 1;
+            B = -1;
+            C = 0;
         }
         else {
             A = (P[1]-Q[1])*1.0/((P[1]-Q[1])*P[0] - (P[0]-Q[0])*P[1]);
