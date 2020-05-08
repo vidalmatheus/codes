@@ -167,7 +167,7 @@ public:
                 if (x1==x2 && y1==y2)
                     samePoints++;
                 else if (x1==x2){
-                    slope = INT64_MAX;
+                    slope = INFINITY;
                     if (slopes.find(slope)!=slopes.end())
                         slopes[slope]++;
                     else slopes[slope] = 1;
