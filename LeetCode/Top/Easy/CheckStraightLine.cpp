@@ -57,6 +57,30 @@ public:
 // Time: O(n)
 // Space: O(1)
 
+class Solution {
+public:
+    bool checkStraightLine(vector<vector<int>>& coordinates) {
+        if (coordinates.size()==2)
+            return true;
+        
+        vector<int> P = coordinates[0];
+        vector<int> Q = coordinates[1];
+        int xdiff = abs(P[0]-Q[0]);
+        int ydiff = abs(P[1]-Q[1]);
+        
+        for (int i=2;i<coordinates.size();i++){
+            int currXdiff = abs(coordinates[i][0] - coordinates[i-1][0]);
+            int currYdiff = abs(coordinates[i][1] - coordinates[i-1][1]);
+            if (xdiff*currYdiff != ydiff*currXdiff)
+                return false;
+        }        
+        
+        return true;
+    }
+};
+// Time: O(n)
+// Space: O(1)
+
 int main(){
     vector<vector<int>> coordinates{
         {1,2},
