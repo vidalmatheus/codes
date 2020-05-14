@@ -62,11 +62,11 @@ int main(){
     trie.search("de")?(cout << "true\n") : (cout << "false\n");
     trie.search("menezes")?(cout << "true\n") : (cout << "false\n");
     cout << "\n";
-    trie.search("fernanda")?(cout << "true\n") : (cout << "false\n");
     trie.search("vida")?(cout << "true\n") : (cout << "false\n");
     return 0;
 }
 
+// Obs.: For pattern matching, we build the trie with O(N^2) only once, and then for each search we just spend O(m) in time complexity
 
 
 
