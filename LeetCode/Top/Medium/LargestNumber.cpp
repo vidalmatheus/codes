@@ -45,14 +45,9 @@ public:
         if (nums.size()==0)
             return "";
         
-        vector<string> all;
-        all.reserve(nums.size());
-        for (int i=0;i<nums.size();i++)
-            all.push_back(to_string(nums[i]));
-        
         priority_queue<string, vector<string>, myComparator> pq;
-        for (int i=0;i<all.size();i++)
-            pq.push(all[i]);
+        for (int i=0;i<nums.size();i++)
+            pq.push(to_string(nums[i]));
         
         string ans = "";
         while (!pq.empty()){
