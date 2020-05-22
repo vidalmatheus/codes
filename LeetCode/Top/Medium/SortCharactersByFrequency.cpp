@@ -40,7 +40,7 @@ public:
         return ans;
     }
 };
-// Time: O(n)
+// Time: O(n log n)
 // Space: O(n)
 
 int main(){
