@@ -168,7 +168,7 @@ public:
         return true;
     }
 };
-// Time: O(n)
+// Time: O(n+m)
 // Space: O(n)
 
 int main(){
