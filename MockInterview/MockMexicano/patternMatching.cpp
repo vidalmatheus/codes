@@ -38,34 +38,64 @@ i: 2
 
 class Solution {
 public:
-    int findPattern(string& t, string& p){
-       if (p.size()>t.size())
-           return false;
+    vector<int> findPattern(string& t, string& p){
+       if (p.size()>t.size() || p.size() == 0)
+           return {};
            
-       int indexP = 0;
-       int start = 0;
-       for (int i=start;i<t.size();i++){
-           if (t[i]==p[indexP]){
-                indexP++;
-                if (indexP == p.size())
-                    return i-p.size()+1;
+       int j = 0;
+       vector<int> index;
+       for (int i=0;i<t.size();i++){
+           if (t[i]==p[j]){
+                j++;
+                if (j == p.size())
+                    index.push_back(i-p.size()+1);
            }
            else { 
-               i=i-indexP;
-               indexP=0;
+               i=i-j;
+               j=0; // in KMP algorithm only changes here!!! F[j-1]
            }
         }
         
-        return -1;
+        return index;
      }
+
+    vector<int> strStr(string& haystack, string& needle) {
+        if (needle.empty()) return {};
+        if (needle.size()>haystack.size()) return {};
+        vector<int> indexes;
+        for (int i=0;i<=haystack.size()-needle.size();i++){
+            bool found = true;
+            for (int j=0;j<needle.size();j++){
+                if (needle[j]!=haystack[i+j]){
+                    found = false;
+                    break;
+                }
+            }
+            if (found) 
+                indexes.push_back(i);
+        }
+        return indexes; // not founded
+    }
 };
+// Time: O(n*m)
+// Space: O(1), no extra space
 
 int main(){
-    string T = "ABACDBACAABACBACDF";
+    string T = "ABACDBACAABACABACDF";
     string P = "BACA";
 
     Solution sol;
-    cout << sol.findPattern(T,P) << endl;
+    vector<int> indexes = sol.findPattern(T,P);
+
+    for (int i:indexes)
+        cout << i << " ";
+    cout << endl;
+
+    indexes = sol.strStr(T,P);
+
+    for (int i:indexes)
+        cout << i << " ";
+    cout << endl;
 
     return 0;
 }
