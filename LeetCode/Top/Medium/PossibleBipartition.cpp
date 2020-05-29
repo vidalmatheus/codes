@@ -56,46 +56,39 @@ public:
 
 class Solution {
 private:
+    unordered_map<int,vector<int>> gr;
+    vector<int> color;
     const int BLANK = -1;
     const int RED = 0;
     const int BLUE = 1;
     
 public:
     bool possibleBipartition(int N, vector<vector<int>>& dislikes) {
-        // edge cases
-        if (N==1)
-            return true;
         if (dislikes.size()==0)
             return true;
         
-        // build graph
-        vector<int> color(N+1,BLANK);
-        unordered_map<int,vector<int>> graph;
-        buildGraph(graph,dislikes);
+        color.resize(N+1,BLANK);
         
-        // color the graph
-        vector<bool> visited(N+1,false);
+        // build graph
+        buildGraph(dislikes);
+        
+        // try to divide the graph
         for (int i=1;i<=N;i++){
-            if (!visited[i]){
-                int colorCounter = RED;
-                if (!bfsColor(graph,i,visited,color))
-                    return false;
-            }
+            if (color[i] == BLANK && !bfsColor(gr,i))
+                return false;
         }
         
         return true;
     }
     
-    void buildGraph(unordered_map<int,vector<int>>& graph, vector<vector<int>>& dislikes){
+    void buildGraph(vector<vector<int>>& dislikes){
         for (int i=0;i<dislikes.size();i++){
-            graph[dislikes[i][0]].push_back(dislikes[i][1]);
-            graph[dislikes[i][1]].push_back(dislikes[i][0]);
+            gr[dislikes[i][0]].push_back(dislikes[i][1]);
+            gr[dislikes[i][1]].push_back(dislikes[i][0]);
         }
     }
     
-    bool bfsColor(unordered_map<int,vector<int>>& graph, int start, vector<bool>& visited, vector<int>& color){
-        if (graph.size() == 0)
-            return {};
+    bool bfsColor(unordered_map<int,vector<int>>& gr, int start){
         queue<int> q;
         q.push(start);
         int currColor = RED;
@@ -104,27 +97,23 @@ public:
             for (int i=0;i<size;i++){
                 int node = q.front();
                 q.pop();
-                if (color[node] == BLANK)
-                    color[node] = currColor;
-    
-                visited[node] = true;
-                for (int i=0;i<graph[node].size();i++){
-                    int neighbour = graph[node][i];
-                    if (!visited[neighbour])
-                        q.push(neighbour);
-                    else if(color[node]==color[neighbour])
+                color[node] = currColor;
+                
+                for (int neighbor:gr[node]){
+                    if (color[neighbor] == BLANK) 
+                        q.push(neighbor);
+                    else if (color[neighbor] == color[node])
                         return false;
-                }     
+                }
             }
-
-            ++currColor%=2;
+            ++currColor%2;
         }
         
         return true;
-    }        
+    }
 };
-// Time: O(N+M), where M is the size of dislikes
-// Space: O(N)
+// Time: O(V+E)
+// Space: O(V)
 
 int main(){
     int N = 3;
