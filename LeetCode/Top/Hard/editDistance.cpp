@@ -107,7 +107,7 @@ public:
 // Time: O(3^(n+m))
 // Space: O(n+m)
 
-class Solution {
+class NaiveMemoSolution {
 private:
     vector<vector<int>> memo;
 public:
@@ -134,6 +134,38 @@ public:
         int replacement = 1 + rec(word1.substr(0,word1.size()-1),word2.substr(0,word2.size()-1));
         
         return memo[word1.size()][word2.size()] = min(insertion,min(deletion,replacement)); 
+    }
+};
+// Time: O(n*m), but here you are spending time copying values at each recursive call
+// Space: O(n*m)
+
+class Solution {
+private:
+    vector<vector<int>> memo;
+public:
+    int minDistance(string word1, string word2) {
+        memo.resize(word1.size(),vector<int>(word2.size(),-1));
+        
+        return rec(word1,word1.size()-1,word2,word2.size()-1);
+    }     
+    
+    int rec(string& word1, int end1, string& word2, int end2){
+        if (end2<0)
+            return end1+1;
+        if (end1<0)
+            return end2+1;
+         
+        if (memo[end1][end2] != -1)
+            return memo[end1][end2];
+    
+        if (word1[end1] == word2[end2])
+            return memo[end1][end2] = rec(word1,end1-1,word2,end2-1);
+        
+        int insertion = rec(word1,end1,word2,end2-1) + 1;
+        int deletion = 1 + rec(word1,end1-1,word2,end2);
+        int replacement = 1 + rec(word1,end1-1,word2,end2-1);
+        
+        return memo[end1][end2] = min(insertion,min(deletion,replacement)); 
     }
 };
 // Time: O(n*m)
