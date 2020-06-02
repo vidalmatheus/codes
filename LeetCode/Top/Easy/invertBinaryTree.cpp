@@ -72,7 +72,7 @@ public:
         return root;    
     }
     
-    void dfs(TreeNode*& root){
+    void dfs(TreeNode* root){
         if (root==nullptr)
             return;
         if (!root->left && !root->right)
