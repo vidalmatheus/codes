@@ -90,7 +90,7 @@ public:
         return rec(nums,0,0,globalSum);
     }
     
-    bool rec(vector<int>& nums, int pos, int sum, int globalSum){
+    bool rec(vector<int>& nums, int pos, int sum, int globalSum){ // find a subset with sum targetSum
         if (sum == globalSum/2)
             return true;
         if (pos == nums.size())
@@ -178,8 +178,8 @@ public:
         return dp[nums.size()-1][targetSum];
     }
 };
-// Time: O(SUM/2)
-// Space: O(SUM/2)
+// Time: O(n*SUM/2)
+// Space: O(n*SUM/2)
 
 class BetterBottomUpSolution { // Dynamic Programming - Bottom-Up
 private:
@@ -221,8 +221,8 @@ public:
         return dp[targetSum];
     }
 };
-// Time: O(n*SUM)
-// Space: O(SUM)
+// Time: O(n*SUM/2)
+// Space: O(SUM/2)
 
 int main(){
     vector<int> nums{1,5,11,5};
