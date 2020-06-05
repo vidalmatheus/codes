@@ -72,6 +72,11 @@ public:
         }
         
         auto pend = remove(s.begin(), s.end(), '*');
+
+        // for (int i=0;i<s.size();i++)
+        //     if (s[i] == '*')
+        //         s.erase(i--,1);
+
         s.erase(pend,s.end());
         return s;
     }
