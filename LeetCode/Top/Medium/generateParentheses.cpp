@@ -64,6 +64,52 @@ public:
     
 };
 
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        if (n == 0)
+            return {};
+        
+        vector<string> ans;
+        rec(ans,n,n,"");
+        
+        return ans;
+    }
+    
+    void rec(vector<string>& ans, int open, int close, string curr){
+        if (open == 0 && close == 0){
+            ans.push_back(curr);
+            return;
+        }
+        
+        if (open != 0){
+            if (open < close){
+                rec(ans,open-1,close,curr+"(");
+                rec(ans,open,close-1,curr+")");
+            }
+            else // if (open == close)
+                rec(ans,open-1,close,curr+"(");   
+        }
+        else // open == 0 && close != 0 
+            rec(ans,open,close-1,curr+")");
+    }
+};
+// Time: O(Catalan(n) = [1/(n+1)] * (2n choose n) )
+// Space: O(n)
+
+/*
+
+Cn is the number of Dyck words[3] of length 2n. 
+A Dyck word is a string consisting of n X's and n Y's such that no initial segment of the string has more Y's than X's. 
+For example, the following are the Dyck words of length 6:
+XXXYYY     XYXXYY     XYXYXY     XXYYXY     XXYXYY.
+
+Re-interpreting the symbol X as an open parenthesis and Y as a close parenthesis, 
+Cn counts the number of expressions containing n pairs of parentheses which are correctly matched:
+((()))     ()(())     ()()()     (())()     (()())
+
+*/
+
 int main() {
     int n = 3;
 
