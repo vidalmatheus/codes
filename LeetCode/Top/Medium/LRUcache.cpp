@@ -19,7 +19,7 @@ public:
         this->capacity = capacity;
     }
     
-    int get(int key) { // O(1)
+    int get(int key) { // O(n)
         if (m.find(key)!=m.end()){ // found
             l.remove(key);
             l.push_back(key);
