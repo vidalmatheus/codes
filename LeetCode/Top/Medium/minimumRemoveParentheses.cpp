@@ -86,6 +86,38 @@ public:
 // Time: O(n)
 // Space: O(n)
 
+class BetterSolution {
+public:
+    string minRemoveToMakeValid(string s) {
+        if (s.size() == 0)
+            return "";
+        
+        int closed = 0; // max to close
+        for (char c:s)
+            if (c == ')')
+                closed++;
+        
+        int opened = 0;
+        string ans;
+        for (char c:s){
+            if (c == '('){
+                if (opened == closed) continue; // I can't open parentheses anymore
+                opened++;
+            }
+            else if (c == ')') {
+                closed--;
+                if (opened == 0) continue; // I can't close parentheses anymore
+                opened--;
+            }
+            ans += c;
+        }
+        
+        return ans;
+    }
+};
+// Time: O(n), two-pass
+// Space: O(1)
+
 int main(){
     // string s = "lee(t(c)o)de)";
     // string s = "a)b(c)d";
