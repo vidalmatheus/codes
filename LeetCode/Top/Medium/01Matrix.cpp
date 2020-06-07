@@ -78,7 +78,7 @@ public:
     }
     
     bool isOutOfBounds(vector<vector<int>>& matrix, pair<int,int>& p){
-        if (p.first<0 || p.second<0 || p.first>=matrix.size() || p.second>-matrix[0].size())
+        if (p.first<0 || p.second<0 || p.first>=matrix.size() || p.second>=matrix[0].size())
             return true;
         return false;
     }
@@ -149,10 +149,14 @@ public:
 // Space: O(1)
 
 int main(){
+    // vector<vector<int>> matrix = {
+    //   {0,0,0},
+    //   {0,1,0},
+    //   {1,1,1}  
+    // };
+
     vector<vector<int>> matrix = {
-      {0,0,0},
-      {0,1,0},
-      {1,1,1}  
+      {0}
     };
 
     cout << "Matrix: " << endl;
