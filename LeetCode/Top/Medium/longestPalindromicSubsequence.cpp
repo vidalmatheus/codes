@@ -40,7 +40,7 @@ public:
     }
 };
 // Time: O(n^2)
-// Space: (n)
+// Space: (n^2)
 
 int main(){
     string s = "bbbab";
