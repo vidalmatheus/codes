@@ -85,34 +85,34 @@ public:
         return false;
     }
     
-    void DFS(vector<vector<char>> &board, string &word, int i, int j, int counter, string &candidate, vector<vector<bool>> &used) {
-        if (counter == word.size() || board[i][j] != word[counter])
+    void DFS(vector<vector<char>> &board, string &word, int i, int j, int pos, string &candidate, vector<vector<bool>> &used) {
+        if (pos == word.size() || board[i][j] != word[pos])
             return;
         
-        if (board[i][j] == word[counter]){
+        if (board[i][j] == word[pos]){
             used[i][j] = true;
             candidate.push_back(board[i][j]);
-            counter++;
+            pos++;
         }
         
         if (i-1>=0 && !used[i-1][j]) 
-            DFS(board,word,i-1,j,counter,candidate,used);
+            DFS(board,word,i-1,j,pos,candidate,used);
         if (i+1<board.size() && !used[i+1][j]) 
-            DFS(board,word,i+1,j,counter,candidate,used);
+            DFS(board,word,i+1,j,pos,candidate,used);
         if (j-1>=0 && !used[i][j-1]) 
-            DFS(board,word,i,j-1,counter,candidate,used);
+            DFS(board,word,i,j-1,pos,candidate,used);
         if (j+1<board[0].size() && !used[i][j+1]) 
-            DFS(board,word,i,j+1,counter,candidate,used);
+            DFS(board,word,i,j+1,pos,candidate,used);
         
-        if (candidate != word){
-            candidate.resize(candidate.size()-1);
+        if (candidate.size() != word.size()){
+            candidate.pop_back();
             used[i][j] = false;
         }
         
     }
 };
-// Time: O(n*m*k)
-// Space: O(n*m*k)
+// Time: O(n*m*4^k), where k is the length of the fiven word
+// Space: O(n*m)
 
 
 int main() {
