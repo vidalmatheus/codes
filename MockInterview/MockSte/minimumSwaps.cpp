@@ -131,7 +131,6 @@ public:
             s2Index[s2[i]] = i;
         
         int swaps = 0;
-        vector<bool> visited(s1.size(),false);
         for (int i=0;i<s1.size();){
             if (s1[i] == s2[i]) ++i;
             else {
@@ -148,9 +147,9 @@ public:
 // Space: O(m)
 
 int main(){
-    // vector<int> nums{7, 1, 3, 2, 4, 5, 6};
+    vector<int> nums{7, 1, 3, 2, 4, 5, 6};
 
-    vector<int> nums{2, 4, 5, 1, 3};
+    // vector<int> nums{2, 4, 5, 1, 3};
 
     Solution sol;
     std::cout << sol.minimumSwap(nums) << endl;
