@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -14,15 +14,18 @@ public:
     int shortestBridge(vector<vector<int>>& A) {
         // identify these two islands (DFS)    
         vector<vector<bool>> visited(A.size(),vector<bool>(A[0].size(),false));
-        int val = 1;
+        bool done = false;
         for (int i=0;i<A.size();++i){
             for (int j=0;j<A[0].size();++j){
                 if (A[i][j] == 1 && !visited[i][j]){
-                    dfs(A,visited,i,j,val);
-                    ++val; // only two islands
+                    dfs(A,visited,i,j,2);
+                    done = true;
+                    break;
                 }
             }
-        }
+            if (done) // I just need to paint one island
+                break;
+        }            
         
         // BFS to return the shortest path between them
         fill(visited.begin(), visited.end(), vector<bool>(A[0].size(),false));
