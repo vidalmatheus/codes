@@ -62,6 +62,33 @@ public:
 // Time: O(n)
 // Space: O(1)
 
+class BetterSolution { // better explained
+public:
+    void sortColors(vector<int>& nums) {
+        int left = 0;
+        int right = nums.size()-1;
+        int index = left;
+        while (index <= right) {    
+            if (nums[index] == 2){
+                if (nums[index] != nums[right])
+                    swap(nums[index],nums[right]);
+                right--;
+            }
+            else if (nums[index] == 0){
+                if (nums[index] != nums[left])
+                    swap(nums[index],nums[left]);
+                else index++;
+                left++;
+            }
+            else index++;
+            
+        }
+        
+    }
+};
+// Time: O(n)
+// Space: O(1)
+
 int main(){
     vector<int> nums = {2,0,2,1,1,0};
 
