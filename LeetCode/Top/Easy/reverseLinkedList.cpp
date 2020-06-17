@@ -20,28 +20,30 @@ public:
     ListNode* reverseList(ListNode* head) { // As the function type is ListNode*, we don't need to pass by reference!!! Important to know!
         if (head==nullptr) return head;
         if (head->next==nullptr) return head;
-        ListNode *p,*c,*n;
-        p=head;
-        c=head->next;
-        n=c->next;
-        p->next=nullptr;
-        while(n!=nullptr){
-            c->next=p;
-            p=c;
-            c=n;
-            n=n->next;
+        ListNode *prev,*curr,*next;
+        prev=head;
+        curr=head->next;
+        next=curr->next;
+        prev->next=nullptr;
+        while(next!=nullptr){
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+            next=next->next;
         }
-        c->next=p;
-        head=c;
+        curr->next=prev;
+        head=curr;
         return head;
     }
 };
+// Time: O(n)
+// Space: O(1)
 
-/* class Solution {
+class ReferenceSolution {
 public:
     void reverseList(ListNode*&head) { // passing by reference (void type function)
-        //if (head==nullptr) return head;
-        //if (head->next==nullptr) return head;
+        if (head==nullptr) return;
+        if (head->next==nullptr) return;
         ListNode *p,*c,*n;
         p=head;
         c=head->next;
@@ -58,9 +60,9 @@ public:
     }
 };
 // Time: O(n)
-// Space: O(1) */
+// Space: O(1)
 
-/* class Solution{ // recursively 
+class RecursiveSolution{ // recursively 
 public:
     ListNode* reverseList(ListNode* head){
         if (head==nullptr) return head;
@@ -72,8 +74,25 @@ public:
     }
 };
 // Time: O(n)
-// Space: O(n) -> the extra space comes from the implicit stack due to recursion. The recursion goes up to n frames or layers deep. */
+// Space: O(n) -> the extra space comes from the implicit stack due to recursion. The recursion goes up to n frames or layers deep. 
  
+class BestSolution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode *prev,*curr,*next;
+        prev=nullptr;
+        curr=head;
+        while(curr!=nullptr){
+            next = curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+        }
+        return prev;
+    }
+};
+// Time: O(n)
+// Space: O(1)
 
 int main(){
     ListNode*L,*p;
