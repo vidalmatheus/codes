@@ -33,7 +33,7 @@ public:
 // Time: O(n^2)
 // Space: O(n)
 
-class Solution {
+class AlmostThereSolution {
 public:
     bool increasingTriplet(vector<int>& nums) {
         if(nums.size()<3)
@@ -68,6 +68,57 @@ public:
 };
 // Time: O(n)
 // Space: O(n)
+
+class Solution { // looking for right version
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        if(nums.size()<3)
+            return false;
+     
+        int left = INT_MAX-1;
+        int mid = INT_MAX;
+        int size = nums.size();
+        for (int i=0;i<size;i++){
+            int right = nums[i];
+            if (right < left && left < mid)
+                left = right;
+            if (left < right && right < mid)
+                mid = right;
+            if (left < mid && mid < right)
+                return true;
+        }
+            
+        return false;
+    }
+};
+// Time: O(n)
+// Space: O(1)
+
+class Solution { // looking for left version
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        if(nums.size()<3)
+            return false;
+
+        int mid = -INT_MAX;
+        int right = -INT_MAX+1;
+        int size = nums.size();
+        for (int i=size-1;i>=0;i--){
+            int left = nums[i];
+            if (mid < right && right <left)
+                right = left;
+            if (mid < left && left < right)
+              mid = left;
+            if (left < mid && mid < right)
+                return true;
+        }
+            
+        return false;
+    }
+
+};
+// Time: O(n)
+// Space: O(1)
 
 int main(){
     vector<int> nums = {1,2,3,4,5};
