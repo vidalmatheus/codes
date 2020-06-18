@@ -54,7 +54,7 @@ public:
 // Time: O(n)
 // Space: O(n)
 
-class BestSolution {
+class BestSolution { // prefixSum improved
 public:
     int maxSubArray (vector<int>& nums){
         if (nums.size() == 0)
