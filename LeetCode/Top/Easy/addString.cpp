@@ -46,6 +46,47 @@ public:
     }
 };
 
+class Solution {
+public:
+    string addStrings(string num1, string num2) {
+        if (num1.size() == 0)
+            return num2;
+        if (num2.size() == 0)
+            return num1;
+        
+        while (num1.size() > num2.size())
+            num2.insert(0,"0");
+        
+        while (num1.size() < num2.size())
+            num1.insert(0,"0");
+        
+        int carry = 0;
+        int n = num1.size();
+        string result(n,'0');
+        for (int i=n;i>=0;i--){
+            int add = (num1[i]-'0') + (num2[i]-'0') + carry;
+            if (add > 9)
+                carry = 1;
+            else carry = 0;
+            
+            add %= 10;
+            
+            result[i] = add+'0';
+        }
+        
+        if (carry > 0){
+            string carry_part = "0";
+            carry_part[0] = carry+'0';
+            result.insert(0,carry_part);
+        }
+        
+        return result;
+    }
+};
+// Time: O(MAX)
+// Space: O(1), without extra space
+
+
 int main(){
     string num1 = "1";
     string num2 = "9";
