@@ -47,6 +47,46 @@ public:
     }
 };
 
+/*
+ 0 1 2 3 4
+[1,3,4,2,2]
+
+      s  f
+0->1->3->2
+
+0->1->3->2->4
+         ^  |
+         |  v
+         <---
+*/
+
+class RedoingSolution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        if (nums.size() == 0)
+            return -1;
+        
+        int slow = 0;
+        int fast = 0;
+        do{
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        } while (slow != fast);
+        
+        
+        int p = 0;
+        while (p != slow){
+            p = nums[p];
+            slow = nums[slow];
+        }
+        
+        return p;
+    }
+};
+// Time: O(n)
+// Space: O(1)
+
+
 int main() {
     vector<int> nums = {3,1,3,4,2};
 
