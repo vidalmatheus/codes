@@ -94,7 +94,7 @@ public:
                 ans.push_back(elem);
         }
 
-        /* If you had decided to do those two for loops above together, that would cost more time, because of the push_back()
+        /* If you had decided to do those two for loops above together, that would cost more time, because you are doing more resizes with the push_back()
         
         for (auto elem:all){
             if (elem.size() > maxSize){
