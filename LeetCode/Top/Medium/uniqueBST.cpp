@@ -54,6 +54,22 @@ public:
 
 // OBS.: Another thing to know is that C_nn is the number of full binary trees with n + 1 leaves
 
+class EasySolution {
+public:
+    int numTrees(int n) {
+        vector<int> C(n + 1, 0);
+        C[0] = 1;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j < i; j++) {
+                // the current number of trees of size i is the sum from each subtree of size j, we have another subtree of size i-j-1
+                C[i] += C[j] * C[i-j-1]; 
+            }
+        }
+        return f[n];
+    }
+};
+
+
 int main(){
     int n = 5;
 
