@@ -91,9 +91,24 @@ public:
         ans.reserve(all.size());
         for (auto elem:all){
             if (elem.size() == maxSize)
-            ans.push_back(elem);
+                ans.push_back(elem);
+        }
+
+        /* If you had decided to do those two for loops above together, that would cost more time, because of the push_back()
+        
+        for (auto elem:all){
+            if (elem.size() > maxSize){
+                maxSize = elem.size();
+                ans.clear();
+                ans.push_back(elem);
+            }
+            else if (elem.size() == maxSize){
+                ans.push_back(elem);
+            }
         }
         
+        */
+
         return ans;
     }
     
