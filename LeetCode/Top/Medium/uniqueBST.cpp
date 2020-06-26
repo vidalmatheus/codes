@@ -65,7 +65,7 @@ public:
                 C[i] += C[j] * C[i-j-1]; 
             }
         }
-        return f[n];
+        return C[n];
     }
 };
 
