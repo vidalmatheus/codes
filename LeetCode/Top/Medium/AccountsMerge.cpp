@@ -58,7 +58,7 @@ public:
 // Time: O(n*m^2)
 // Space: O(n*m)
 
-class Solution {
+class StudySolution {
 public:
     vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
         if (accounts.size()==0)
@@ -112,3 +112,102 @@ public:
 };
 // Time: O(n log n)
 // Space: O(n)
+
+/*
+
+1. build a graph, using the given list of edges (accounts)
+2. map email->name
+3. do dfs in each component
+    3.1 store the traversal
+    3.2 sort them
+    3.3 put the name at beginning
+    3.4 add to the global answer
+
+*/
+
+class Solution { // Best Explained Solution
+public:
+    vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
+        if (accounts.size() == 0)
+            return {};
+        
+        // 1. build a graph
+        // 2. map email->name
+        unordered_map<string,vector<string>> graph;
+        unordered_map<string,string> emailToName;
+        buildGraph(graph,accounts,emailToName);
+        
+        // 3. do dfs in each component
+        vector<vector<string>> merged;
+        unordered_set<string> visited;
+        for (auto elem:emailToName){
+            string email_node = elem.first; 
+            if (visited.find(email_node) == visited.end()){
+                vector<string> emails_component;
+                
+                // 3.1 store the traversal
+                dfs(graph,email_node,emails_component,visited);
+                
+                // 3.2 sort them
+                sort(emails_component.begin(),emails_component.end());
+                string name_node = emailToName[emails_component[0]];
+                
+                // 3.3 put the name at beginning
+                emails_component.insert(emails_component.begin(),name_node);
+                
+                // 3.4 add to the global answer
+                merged.push_back(emails_component);
+            }
+        }
+        
+        return merged;
+    }
+    
+    void buildGraph(unordered_map<string,vector<string>>& graph, vector<vector<string>>& accounts, unordered_map<string,string>& emailToName){
+        for (auto account:accounts){
+            vector<string> emails;
+            emailToName[account[1]] = account[0];
+            for (int i=2;i<account.size();i++){
+                graph[account[1]].push_back(account[i]);
+                graph[account[i]].push_back(account[1]);
+                emailToName[account[i]] = account[0];
+            }
+        }
+    }
+    
+    void dfs(unordered_map<string,vector<string>>& graph, string& node, vector<string>& emails_component, unordered_set<string>& visited){
+        visited.insert(node);
+        emails_component.push_back(node);
+        
+        for (auto neighbor:graph[node])
+            if (visited.find(neighbor) == visited.end())
+                dfs(graph,neighbor,emails_component,visited);
+    }
+};
+// Time: O([summatory]k log k)
+// Space: O(A)
+
+int main(){
+    vector<vector<string>> accounts{
+        {"John", "johnsmith@mail.com", "john00@mail.com"}, 
+        {"John", "johnnybravo@mail.com"}, 
+        {"John", "johnsmith@mail.com", "john_newyork@mail.com"}, 
+        {"Mary", "mary@mail.com"}
+    };
+
+    Solution sol;
+    vector<vector<string>> ans = sol.accountsMerge(accounts);
+
+    vector<vector<string>> output{
+        {"John", "john00@mail.com", "john_newyork@mail.com", "johnsmith@mail.com"},  
+        {"John", "johnnybravo@mail.com"}, 
+        {"Mary", "mary@mail.com"}
+    };
+
+    sort(ans.begin(),ans.end());
+    sort(output.begin(),output.end());
+
+    ans == output ? cout << "Correct!\n" : cout << "Incorrect!\n";
+
+    return 0;
+}
