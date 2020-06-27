@@ -67,7 +67,7 @@ public:
         return false;
     }
 };
-// Time: O(n*log n), on average
+// Time: O(n*log^2 n), on average
 // Space: O(1)
 
 class KMPSolution { // This solution was worth to understand that essentially KMP looks for non-overlapping substrings.
