@@ -26,18 +26,61 @@ ans: dp[text2.size()][text1.size()] = 3
 */
 
 class Solution {
+private:
+    vector<vector<int>> dp;
 public:
     int longestCommonSubsequence(string text1, string text2) {
         if (text1.size()==0 || text2.size()==0)
             return 0;
         
-        vector<vector<int>> dp(text2.size()+1,vector<int>(text1.size()+1,0));
+        dp.resize(text2.size()+1,vector<int>(text1.size()+1,0));
         
         for (int i=1;i<=text2.size();i++)
             for (int j=1;j<=text1.size();j++)
                 dp[i][j] = text1[j-1] == text2[i-1] ? dp[i-1][j-1]+1 : max(dp[i-1][j],dp[i][j-1]);
         
         return dp[text2.size()][text1.size()];
+    }
+
+    string LCS(string& text1, string& text2){
+        string lcs = "";
+        int i = 1;
+        int j = 1;
+        while (i < dp.size() && j < dp[0].size()){
+            cout << i << ", " << j << endl;
+            if (text2[i-1] == text1[j-1]){
+                lcs.push_back(text2[i-1]);
+                i++;
+                j++;
+            }
+            else{
+                if (i+1 == dp.size() || dp[i][j+1] > dp[i+1][j])
+                    j++;
+                else i++;
+            }
+        }
+
+        return lcs;
+    }
+
+    string LCS(string& text1, string& text2, int len){ // Maybe this is a better way to trace the LCS
+        string lcs = "";
+        int i = dp.size()-1;
+        int j = dp[0].size()-1;
+        while (lcs.size() != len){
+            if (text2[i-1] == text1[j-1]){
+                lcs = text2[i-1] + lcs;
+                i--;
+                j--;
+            }
+            else{
+                if (i-1 == 0 || dp[i][j-1] > dp[i-1][j])
+                    j--;
+                else i--;
+            }
+        }
+
+        return lcs;
     }
 };
 // Time: O(n*m)
@@ -112,13 +155,14 @@ public:
 // Time: O(n*m)
 // Space: O(n*m)
 
-
 int main(){
     string text1 = "abcde";
     string text2 = "ace";
 
     Solution sol;
-    cout << sol.longestCommonSubsequence(text1, text2) << endl;
+    int len = sol.longestCommonSubsequence(text1, text2);
+    cout << len << endl;
+    cout << sol.LCS(text1,text2,len) << endl;
 
     return 0;
 }
