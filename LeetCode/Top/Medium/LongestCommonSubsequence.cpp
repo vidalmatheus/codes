@@ -41,7 +41,77 @@ public:
     }
 };
 // Time: O(n*m)
-// Space: o(n*m)
+// Space: O(n*m)
+
+/*
+        i
+    abcde
+    
+      j
+    ace
+
+rec(i,j):
+    // base case
+    if (i > s1.length() or j > s2.length())
+        return 0;
+    
+    if (s1[i] == s2[j])
+        return 1+rec(i+1,j+1);
+    else return max(rec(i+1,j),rec(i,j+1));
+    
+    
+rec(0,0): 1 + rec(1,1) = 3
+    rec(1,1):
+        rec(2,1): 1 + rec(3,2) = 2
+            rec(3,2): max(rec(4,2), rec(3,3)) = 1
+                rec(4,2): 1 + rec(5,3) = 1
+                    rec(5,3) = 0
+                    
+                
+                rec(3,3): 0
+                
+            
+        rec(1,2): max(rec(2,2), rec(1,3)) =  1
+            rec(2,2): max(rec(3,2), rec(2,3)) = 1
+                rec(3,2): max(rec(4,2), rec(3,3)) = 1
+                    rec(4,2): 1
+                        
+                        
+                    rec(3,3): 0
+                    
+                    
+                rec(2,3): 0
+                
+            
+            rec(1,3): 0
+*/
+
+class TopDownSolution { // easy to come up with
+private:
+    vector<vector<int>> memo;
+public:
+    int longestCommonSubsequence(string text1, string text2) {
+        
+        memo.resize(text1.size(),vector<int>(text2.size(),-1));
+        
+        return LCS(text1,text2,0,0);
+    }
+    
+    int LCS(string& text1, string& text2, int i, int j){
+        if (i >= text1.size() || j >= text2.size())
+            return 0;
+        
+        if (memo[i][j] != -1)
+            return memo[i][j];
+        
+        if (text1[i] == text2[j])
+            return memo[i][j] = 1 + LCS(text1,text2,i+1,j+1);
+        else return memo[i][j] = max(LCS(text1,text2,i+1,j), LCS(text1,text2,i,j+1));
+    }
+};
+// Time: O(n*m)
+// Space: O(n*m)
+
 
 int main(){
     string text1 = "abcde";
