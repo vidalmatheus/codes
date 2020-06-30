@@ -75,6 +75,66 @@ public:
 // Time: O(L*n*m*k)
 // Space: O(L*n*m*k)
 
+class DFSSolution { // Better written solution than that before
+public:
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        if (words.size() == 0)
+            return {};
+        
+        vector<string> ans;
+        for (string word:words){
+            if (found(board,word))
+                ans.push_back(word);
+        }
+        
+        return ans;
+    }
+    
+    bool found(vector<vector<char>>& board, string& word){
+        vector<vector<bool>> visited(board.size(),vector<bool>(board[0].size(),false));
+        
+        for (int i=0;i<board.size();i++){
+            for (int j=0;j<board[0].size();j++){
+                if (board[i][j] == word[0]){
+                    if (dfs(board,word,visited,i,j,0))
+                        return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    bool valid(vector<vector<char>>& board, int i, int j){
+        return i >= 0 && j >= 0 && i < board.size() && j < board[0].size();
+    }
+    
+    bool dfs(vector<vector<char>>& board, string& word, vector<vector<bool>>& visited, int i, int j, int pos){
+        if (pos == word.size())
+            return true;
+        
+        if (!valid(board,i,j) || visited[i][j])
+             return false;
+
+        visited[i][j] = true;
+        if (board[i][j] == word[pos]){
+            int dir[4][2] = { {0,1}, {1,0}, {-1,0}, {0,-1} };
+            for (int k=0;k<4;k++){
+                int ni = i + dir[k][0];
+                int nj = j + dir[k][1];
+                if (dfs(board,word,visited,ni,nj,pos+1))
+                    return true;
+            }
+        }
+        
+        visited[i][j] = false;
+        return false;
+     }
+};
+// Time: O(k*n*m*L), board(n,m); k words to search; L is the maximum length of a searching word
+// Space: O(k*n*m*L)
+
+
 struct TrieNode{
     bool isWord;
     string word;
