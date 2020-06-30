@@ -32,6 +32,29 @@ public:
 // Time: O(n^2)
 // Space: O(n^2)
 
+class MemoSolution {
+private:
+    vector<vector<int>> memo;
+public:
+    int uniquePaths(int m, int n) {
+        memo.resize(m+1,vector<int>(n+1,-1));
+        
+        return rec(m,n);
+    }
+    
+    int rec(int m, int n){
+        if (m == 1 || n == 1)
+            return 1;
+    
+        if (memo[m][n] != -1)
+            return memo[m][n];
+        
+        return memo[m][n] = rec(m,n-1) + rec(m-1,n);
+    }
+};
+// Time: O(m*n)
+// Space: O(m*n)
+
 int main(){
     int m = 7;
     int n = 3;
