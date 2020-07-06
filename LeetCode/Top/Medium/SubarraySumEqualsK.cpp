@@ -62,6 +62,47 @@ public:
 // Time: O(n)
 // Space: O(n)
 
+/*
+k = 2
+[1, 1, 1]
+       i 
+
+prefixSum_i: 2
+prefixSum_j: 3-2=1
+counter: 2
+[0]: 1
+[1]: 1
+[2]: 
+
+*/
+
+class ReviewSolution { // reviewing
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        if (nums.size() == 0)
+            return 0;
+        
+        unordered_map<int,int> freq; // prefixSum -> 'how many?'
+        freq[0] = 1; // to assure that we'll cover the zero prefix sum 
+        int prefixSum_i = 0;
+        int counter = 0; // to keep in track how many solutions I have so far
+        for (int num:nums){
+            prefixSum_i += num;
+            
+            // prefixSum[i] - prefixSum[j] = k
+            int prefixSum_j = prefixSum_i - k;
+            if (freq.find(prefixSum_j) != freq.end())
+                counter += freq[prefixSum_j];
+            
+            freq[prefixSum_i]++; // adding the current prefix sum
+        }
+        
+        return counter;
+    }
+};
+// Time: O(n)
+// Space: O(n)
+
 int main(){
     vector<int> nums = {1,1,1};
     int k = 2;
