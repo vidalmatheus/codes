@@ -3,6 +3,7 @@
 using namespace std;
 
 static int speedUp=[](){
+    # define endl '\n'
     std::ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
@@ -46,6 +47,29 @@ public:
         }
         
         return ans+balance;
+    }
+};
+// Time: O(n)
+// Space: O(1)
+
+class ReviewdSolution { // better coded
+public:
+    int minAddToMakeValid(string S) {
+         if (S.size() == 0)
+             return 0;
+        
+        int opened_needed = 0;
+        int open = 0;
+        for (char c:S){
+            open += c == '(' ? 1 : -1;
+            if (open < 0){
+                open = 0;
+                opened_needed++;
+            }
+        }
+        
+        int closed_needed = open;
+        return opened_needed + closed_needed;
     }
 };
 // Time: O(n)
