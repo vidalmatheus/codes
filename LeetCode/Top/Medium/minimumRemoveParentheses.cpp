@@ -118,6 +118,43 @@ public:
 // Time: O(n), two-pass
 // Space: O(1)
 
+class ReviewdSolution {
+public:
+    string minRemoveToMakeValid(string s) {
+        if (s.size() == 0)
+            return "";
+        
+        int max_open = 0;
+        for (char c:s)
+            if (c == ')')
+                max_open++;
+        
+        string ans = "";
+        int open = 0;
+        for (char c:s){
+            if (c == '('){
+                // if I don't have any closing parentheses to match, I can't open any parentheses further
+                if (open == max_open) continue; // skip when I can't open parentheses
+                
+                open++;
+            }
+            else if (c == ')'){
+                max_open--;
+                // if I don't have any openning parentheses to match, I can't close any parentheses further
+                if (open == 0) continue; // skip when I can't close parentheses
+                
+                open--;
+            }
+            
+            ans += c;        
+        }
+        
+        return ans;
+    }
+};
+// Time: O(n)
+// Space: O(1)
+
 int main(){
     // string s = "lee(t(c)o)de)";
     // string s = "a)b(c)d";
