@@ -9,6 +9,57 @@ static int speedUp=[](){
     return 0;
 }();
 
+#include <bits/stdc++.h>
+
+using namespace std;
+
+static int speedUp=[](){
+    std::ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return 0;
+}();
+
+/* 
+
+[0, 0, 1, 1, 0, 0, 0, 0]
+
+*/
+
+class BruteForceSolution { // TLE -> O(8*N) = O(8*10^9) = O(10^10) --> 10^10/GHz > 1 s (TLE!) 
+public:
+    vector<int> prisonAfterNDays(vector<int>& cells, int N) {
+        if (N == 1)
+            return cells;
+        
+        int size = cells.size();
+        
+        vector<int> prev = cells;
+        // Day 1:
+        for (int i=1;i<size-1;i++){
+            if ( (prev[i-1] && prev[i+1]) || (!prev[i-1] && !prev[i+1]) )
+                cells[i] = 1;
+            else cells[i] = 0;
+        }
+        cells[0] = 0;
+        cells[size-1] = 0;
+        
+        // Next Days;
+        prev = cells;
+        for (int n=1;n<N;n++){
+            for (int i=1;i<size-1;i++){
+                if ( (prev[i-1] && prev[i+1]) || (!prev[i-1] && !prev[i+1]) )
+                    cells[i] = 1;
+                else cells[i] = 0;
+            }
+            prev = cells;
+        }
+        
+        return cells;
+    }
+};
+// Time: O(8*N)
+// Space: O(1), without extra space
 
 class RecursiveSolution {
 public:
