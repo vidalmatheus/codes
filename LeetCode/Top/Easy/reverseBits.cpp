@@ -30,7 +30,7 @@ public:
     }
 };
 
-/* class Solution {
+class DifferentSolution {
 public:
     uint32_t reverseBits(uint32_t n) {
         uint32_t res = 0;
@@ -41,7 +41,28 @@ public:
         }
         return res;
     }
-}; */
+};
+
+class ReviewdSolution {
+public:
+    uint32_t reverseBits(uint32_t n) {
+        uint32_t ans = 0;
+        for (int i=0,j=31;i<j;i++,j--){
+            int elem_i = ( (n & (1<<i)) != 0 );
+            int elem_j = ( (n & (1<<j)) != 0 );
+            
+            if (elem_i == 1) 
+                ans |= (1<<j);
+            
+            if (elem_j == 1)
+                ans |= (1<<i);
+        }
+        
+        return ans;
+    }
+};
+// Time: O(1)
+// Space: O(1)
 
 int main(){
     int n = 43261596;
