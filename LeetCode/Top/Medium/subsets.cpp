@@ -9,7 +9,7 @@ static int speedUp=[](){
     return 0;
 }();
 
-class Solution {
+class RecursiveSolution {
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
         if (nums.size()==0)
@@ -34,8 +34,56 @@ public:
         subsetsRecursive(nums,ans,current,pos+1);        
     }
 };
-// Time: O(2^n)
-// Space: O(2^n)
+// Time: O(n*2^n)
+// Space: O(n^2*2^n)
+
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        if (nums.size() == 0)
+            return {};
+        
+        vector<vector<int>> ans;
+        vector<int> curr;
+        rec(nums,ans,0,curr);
+        
+        return ans;
+    }
+    
+    void rec(vector<int>& nums, vector<vector<int>>& ans, int pos, vector<int>& curr){
+        if (pos == nums.size()){
+            ans.push_back(curr);
+            return;
+        }
+        
+        curr.push_back(nums[pos]);
+        rec(nums,ans,pos+1,curr);
+        curr.pop_back();
+        rec(nums,ans,pos+1,curr);
+    }
+};
+// Time: O(n*2^n)
+// Space: O(n*2^n)
+
+class IterativeSolution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        const int n = nums.size();
+        vector<vector<int>> results;
+        for (int i = 0; i < pow(2, n); i++) {
+            vector<int> v;
+            for (int j = 0; j < n; j++) {
+                if (i & (1<<j)) {
+                    v.push_back(nums[j]);
+                }
+            }
+            results.push_back(move(v));
+        }
+        return results;
+    }
+};
+// Time: O(n*2^n)
+// Space: O(n*2^n)
 
 int main() {
 
