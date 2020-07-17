@@ -3,13 +3,14 @@
 using namespace std;
 
 static int speedUp=[](){
+    #define endl '\n';
     std::ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
     return 0;
 }();
 
-class Solution {
+class FirstSolution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
         if (nums.size()==1 && k==1)
@@ -49,6 +50,38 @@ public:
 };
 // Time: O(nlog k)
 // Space: O(n)
+
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        if (nums.size() == 0)
+            return {};
+        
+        unordered_map<int,int> counter;
+        for (int i=0;i<nums.size();i++)
+            counter[nums[i]]++;
+        
+        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> heap;
+        for (auto elem:counter){
+            if (heap.size() < k)        
+                heap.push({elem.second,elem.first});
+            else if (heap.top().first < elem.second){
+                heap.pop();
+                heap.push({elem.second,elem.first});
+            }                
+        }
+        
+        vector<int> ans;
+        while (!heap.empty()){
+            ans.push_back(heap.top().second);
+            heap.pop();
+        }
+        
+        return ans;
+    }
+};
+// Time: O(n log k)
+// Space: O(k)
 
 int main(){
     vector<int> nums = {6,0,1,4,9,7,-3,1,-4,-8,4,-7,-3,3,2,-3,9,5,-4,0};
