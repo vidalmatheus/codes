@@ -52,7 +52,7 @@ public:
         return -1;
     }
     
-    bool isUgly(int n){
+    bool isUgly(int n){ // Time: O(n) & Space: O(n)
         if (n == 1)
             return true;
         
@@ -71,7 +71,7 @@ public:
         return memo[n] = false;
     }
 };
-// Time: O(n)
+// Time: O(n*m), where m is the number of times you call isUgly()
 // Space: O(n)
 
 /*
