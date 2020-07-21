@@ -114,6 +114,57 @@ public:
 // Time: O(n*m*4^k), where k is the length of the fiven word
 // Space: O(n*m)
 
+class BestSolution {
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        if (board.size() == 0)
+            return false;
+        
+        if (word.size() == 0)
+            return true;
+        
+        for (int i=0;i<board.size();i++){
+            for (int j=0;j<board[0].size();j++){
+                if (board[i][j] == word[0])
+                    if (dfs(board,i,j,0,word))
+                        return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    bool valid (vector<vector<char>>& board, int i, int j){
+        return i>=0 && j>=0 && i<board.size() && j<board[0].size();
+    }
+    
+    bool dfs(vector<vector<char>>& board, int i, int j, int pos, string& word){
+        if (pos == word.size())
+            return true;
+        
+        if (!valid(board,i,j) || board[i][j] == '#')
+            return false;
+        
+        if (board[i][j] != word[pos])
+            return false;
+        
+        char tmp = board[i][j];
+        board[i][j] = '#';
+        
+        int dir[4][2] = { {0,1}, {0,-1}, {1,0}, {-1,0} };
+        for (int k=0;k<4;k++){
+            int next_i = i + dir[k][0];
+            int next_j = j + dir[k][1];
+            if (dfs(board,next_i,next_j,pos+1,word))
+                return true;
+        }
+        
+        board[i][j] = tmp;
+        return false;    
+    }
+};
+// Time: O(n*m*4^k), where k is the length of the fiven word
+// Space: O(n+m)
 
 int main() {
     vector<vector<char>> board = {
