@@ -31,7 +31,32 @@ public:
 // Time: O(n)
 // Space: O(n)
 
-class Solution { // Linear Space, using bit manipulation
+class BestHashSolution {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+        if (nums.size() == 0)
+            return {};
+        
+        unordered_map<int,int> m;
+        for (int num:nums)
+            m[num]++;
+    
+        vector<int> ans;
+        for (auto elem:m){
+            if (elem.second == 1){
+                ans.push_back(elem.first);
+                if (ans.size() == 2)
+                    break;
+            }
+        }
+        
+        return ans;
+    }
+};
+// Time: O(n)
+// Space: O(n)
+
+class LinearSpaceSolution { // Linear Space, using bit manipulation
 public:
     vector<int> singleNumber(vector<int>& nums) {
         int xorSum = 0;
