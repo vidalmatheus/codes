@@ -69,6 +69,79 @@ public:
     }
 };
 
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+static int speedUp=[](){
+    # define endl '\n'
+    std::ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return 0;
+}();
+
+/*
+        3
+      /   \
+     9
+
+           0 1  2  3 4
+inorder = [9,3,15,20,7] -> L V R
+             i
+
+             0  1 2  3 4
+postorder = [9,15,7,20,3] -> L R V
+                       j    
+
+rec(0,4,0,4):
+    rec(0,0,0,0):
+        rec(0,-1,,): null
+    
+    rec(2,4,1,3): ...
+
+*/
+
+class ReviewSolution { // same as the previous solution, just redoing the problem
+private:
+    unordered_map<int,int> indexInorder;
+public:
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        if (inorder.size() == 0 || postorder.size() == 0)
+            return nullptr;
+        
+        for (int i=0;i<inorder.size();i++)
+            indexInorder[inorder[i]] = i;
+        
+        return rec(inorder,0,inorder.size()-1,postorder,0,postorder.size()-1);
+    }
+    
+    TreeNode* rec(vector<int>& inorder, int startInorder, int endInorder, vector<int>& postorder, int startPostorder, int endPostorder){
+        if (startInorder > endInorder || startPostorder > endPostorder)
+            return nullptr;
+        
+        TreeNode* node = new TreeNode(postorder[endPostorder]);
+        int index = indexInorder[postorder[endPostorder]];
+        
+        int amount_left = index-startInorder;
+        
+        node->left = rec(inorder,startInorder,index-1,postorder,startPostorder,startPostorder+amount_left-1);
+        node->right = rec(inorder,index+1,endInorder,postorder,startPostorder+amount_left,endPostorder-1);
+        
+        return node;
+    }
+};
+// Time: O(n)
+// Space: O(n)
+
+
 void postOrder (TreeNode *root){
     if (root==nullptr)
         return ;
