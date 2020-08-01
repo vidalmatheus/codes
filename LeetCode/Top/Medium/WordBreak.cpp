@@ -79,7 +79,7 @@ public:
         return rec(s,dict);   
     }
     
-    bool rec(string s, unordered_set<string>& dict){
+    bool rec(string& s, unordered_set<string>& dict){
         if (s.size()==0)
             return true;
         
@@ -90,7 +90,8 @@ public:
         for (int i=0;i<s.size();i++){
             word +=s[i];
             if (dict.find(word)!=dict.end())
-                if (rec(s.substr(i+1),dict))
+            string str = s.substr(i+1);
+                if (rec(str,dict))
                     return memo[s] = true;
         }
         
