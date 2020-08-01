@@ -3,6 +3,7 @@
 using namespace std;
 
 auto speedup=[](){
+    # define endl '\n'
     std::ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
@@ -41,3 +42,32 @@ public:
 };
 // Time: O(n)
 // Space: O(1)
+
+class MemoizationSolution {
+private:
+    vector<vector<int>> memo;
+public:
+    int maxProfit(vector<int>& prices) {
+        if (prices.size() == 0)
+            return 0;
+        
+        memo.resize(prices.size(),vector<int>(2,-1));
+        
+        return rec(prices,0,0);
+    }
+    
+    int rec(vector<int>& prices, int pos, int state){
+        if (pos == prices.size())
+            return 0;
+        
+        if (memo[pos][state] != -1)
+            return memo[pos][state];
+        
+        if (state == 0)
+            return memo[pos][state] = max( rec(prices,pos+1,0), rec(prices,pos+1,1)-prices[pos] );
+        else // state == 1
+            return memo[pos][state] = max( rec(prices,pos+1,1), rec(prices,pos+1,0)+prices[pos] );
+    }
+};
+// Time: O(n)
+// Space: O(n)
