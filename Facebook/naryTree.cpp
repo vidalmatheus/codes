@@ -72,6 +72,8 @@ void levelOrder(Node* root) {
         cout << endl;
     }
 }
+// Time: O(n)
+// Space: O(n)
 
 string preOrder(Node* root){
     if (root == nullptr)
@@ -86,12 +88,11 @@ string preOrder(Node* root){
     while (!s.empty()){
         Node* node = s.top();
         s.pop();
-
         ans.append(node->val);
         children.top()--;
 
         int amount_of_children = node->children.size();
-        // if we've used all children and the current node don't have any children
+        // if we've used all children and the current node doesn't have any children
         if (children.top() == 0 && amount_of_children == 0){ 
             ans.push_back(')');
             open--;
@@ -118,6 +119,8 @@ string preOrder(Node* root){
 
    return ans;
 }
+// Time: O(n)
+// Space: O(n)
 
 int main(){
     string s = "node1(node2,node3(node4,node5,node6),node7,node8(node9(node10)))";
