@@ -260,6 +260,92 @@ public:
 // Time: O(n)
 // Space: O(n)
 
+class SimpleSolution {
+public:
+    vector<vector<int>> verticalTraversal(TreeNode* root) {
+        if (root == nullptr)
+            return {};
+        
+        unordered_map<int,set<pair<int,int>>> tag;
+        int min_tag = INT_MAX;
+        int max_tag = INT_MIN;
+        tagNodes(root,tag,min_tag,max_tag,0,0); // O(n)
+        
+        vector<vector<int>> ans;
+        for (int i=min_tag;i<=max_tag;i++){// O(n)
+            vector<int> tmp;
+            for (auto e:tag[i])
+                tmp.push_back(e.second);
+            ans.push_back(tmp);
+        }
+        
+        
+        return ans;
+    }
+    
+    void tagNodes(TreeNode* root, unordered_map<int,set<pair<int,int>>>& tag, int& min_tag, int& max_tag, int curr, int level){
+        if (root == nullptr)
+            return;
+        
+        min_tag = min(min_tag,curr);
+        max_tag = max(max_tag,curr);
+        tag[curr].insert({level,root->val});
+        tagNodes(root->left,tag,min_tag,max_tag,curr-1,level+1);
+        tagNodes(root->right,tag,min_tag,max_tag,curr+1,level+1);
+    }
+};
+// Time: O(n)
+// Space: O(n)
+
+class FastestSolution {
+public:
+    vector<vector<int>> verticalTraversal(TreeNode* root) {
+        if (root == nullptr)
+            return {};
+        
+        unordered_map<int,set<pair<int,int>>> tag;
+        int min_tag = INT_MAX;
+        int max_tag = INT_MIN;
+        tagNodes(root,tag,min_tag,max_tag); // O(n)
+        
+        vector<vector<int>> ans;
+        for (int i=min_tag;i<=max_tag;i++){// O(n)
+            vector<int> tmp;
+            for (auto e:tag[i])
+                tmp.push_back(e.second);
+            ans.push_back(tmp);
+        }
+        
+        return ans;
+    }
+    
+    void tagNodes(TreeNode* root, unordered_map<int,set<pair<int,int>>>& tag, int& min_tag, int& max_tag){
+        if (root == nullptr)
+            return;
+        
+        queue<pair<TreeNode*,int>> q;
+        q.push({root,0});
+        int level = 0;
+        while (!q.empty()){
+            int size = q.size();
+            for (int i=0;i<size;i++){
+                TreeNode* node = q.front().first;
+                int curr = q.front().second;
+                q.pop();
+                min_tag = min(min_tag,curr);
+                max_tag = max(max_tag,curr);
+                tag[curr].insert({level,node->val});
+                
+                if (node->left) q.push({node->left,curr-1});
+                if (node->right) q.push({node->right,curr+1});            
+            }
+            level++;
+        }
+    }
+};
+// Time: O(n)
+// Space: O(n)
+
 int main() {
     TreeNode* root = new TreeNode(1);
     root->left = new TreeNode(2);
