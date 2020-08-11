@@ -40,6 +40,30 @@ public:
         return true;   
     }
 };
+// Time: O(n)
+// Space: O(n)
+
+class BestSolution {
+public:
+    bool isPalindrome(string s) {
+        if (s.size() == 0)
+            return true;
+        
+        int n = s.size();
+        for (int i=0,j=n-1;i<j;){
+            if (!isalnum(s[i]))
+                i++;
+            else if (!isalnum(s[j]))
+                j--;
+            else if (tolower(s[i++]) != tolower(s[j--]))
+                return false;        
+        }
+        
+        return true;
+    }
+};
+// Time: O(n)
+// Space: O(1)
 
 int main(){
 
