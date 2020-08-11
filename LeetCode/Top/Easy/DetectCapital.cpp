@@ -30,6 +30,36 @@ public:
 // Time: O(n)
 // Space: O(1)
 
+class FasterSolution {
+public:
+    bool detectCapitalUse(string word) {
+        if (word.size() == 0)
+            return false;
+        
+        if (word.size() == 1)
+            return true;
+        
+        int state;
+        if (isupper(word[0]))
+            if (isupper(word[1]))
+                state = 0; // AB...
+            else state = 1; // Ab...
+        else state = 1; // a...
+        
+        for (int i=1;i<word.size();++i){
+            char c = word[i];
+            if (state == 0 && islower(c))
+                return false;
+            if (state == 1 && isupper(c))
+                return false;
+        }
+                
+        return true;
+    }
+};
+// Time: O(n)
+// Space: O(1)
+
 int main(){
     string word = "USA";
 
