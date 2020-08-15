@@ -254,6 +254,64 @@ public:
 // Time: O(n*m)
 // Space: O(m)
 
+class FeasibleSolution {
+public:
+    int maximalRectangle(vector<vector<char>>& matrix) {
+        if (matrix.size() == 0)
+            return 0;
+        
+        int maxArea = 0;
+        vector<int> heights(matrix[0].size(),0);
+        for (int i=0;i<matrix.size();i++){
+            buildHistogram(matrix, heights, i);
+            maxArea = max(maxArea, largestRectangleArea(heights));
+        }
+        
+        return maxArea;
+    }
+
+    void buildHistogram(vector<vector<char>>& matrix, vector<int>& heights, int row){ // Time: O(m) & Space: O(1)
+        int m = matrix[0].size();
+        for (int j=0;j<m;j++){
+            if (matrix[row][j] == '1')
+                heights[j]++;
+            else heights[j] = 0;
+        }
+    }
+    
+    int largestRectangleArea(vector<int>& heights) { // Time: O(m^2) & Space: O(1)
+        if (heights.size() == 0)
+            return 0;
+                
+        bool allEqual = true;
+        for (int i=1;i<heights.size();++i)
+            if (heights[i-1] != heights[i])
+                allEqual = false;
+        
+        if (allEqual)
+            return heights[0]*heights.size();
+        
+        int maxArea = 0;
+        int n = heights.size();
+        for (int i=0;i<n;i++){
+            int left = i;
+            int right = i;
+            while (left >= 0 && heights[left] >= heights[i])
+                left--;
+            
+            while (right < n && heights[right] >= heights[i])
+                right++;
+            
+            maxArea = max(maxArea, (right - left - 1)*heights[i]);
+        }
+        
+        return maxArea;
+    }    
+};
+// Time: O(n*m^2)
+// Space: O(m)
+
+
 int main(){
     vector<vector<char>> matrix{
         {'1','0','1','0','0'},
