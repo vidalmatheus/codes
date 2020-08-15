@@ -36,6 +36,32 @@ public:
 // Time: O(n^2)
 // Space: O(1)
 
+class AnotherSolution {
+public:
+    int maxArea(vector<int>& height) {
+        if (height.size() == 0)
+            return 0;
+        
+        int maxArea = 0;
+        int n = height.size();
+        for (int i=1;i<n-1;i++){
+            int left = i-1; 
+            int right = i+1;
+            while (left >= 0 || right <= n-1){
+                int currArea = (right - left)*min(height[left], height[right]); 
+                maxArea = max(maxArea, currArea);
+                if (left > 0) left--;
+                if (right < n-1) right++;
+                if (left == 0 && right == n-1) break;
+            }
+        }
+        
+        return maxArea;
+    }
+};
+// Time: O(n^2)
+// Space: O(1)
+
 class Solution {
 public:
     int maxArea(vector<int>& height) {
@@ -59,8 +85,6 @@ public:
     }
 };
 // Time: O(n)
-// Space: O(1)
-// Time: O()
 // Space: O(1)
 
 int main(){
