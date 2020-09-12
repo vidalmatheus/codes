@@ -69,7 +69,7 @@ int main(){
 
     BruteForceSolution bfsol;
     cout << "\nGenerate All Palindromic Decompositions:" << endl;
-    ans = bfsol.generatePalindromicDecompositions(s);
+    vector<string> ans = bfsol.generatePalindromicDecompositions(s);
 
     for (string s : ans)
         cout << s << endl;
