@@ -52,7 +52,7 @@ public:
         cur.pop_back();    
     }
 };
-// Time: O(10*9*n)
+// Time: O(10*9*n)e
 // Space: O(n)
 
 int main(){
