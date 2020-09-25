@@ -61,11 +61,73 @@ public:
 // Time: O(n log n)
 // Space: O(n)
 
+class BetterSolution {
+private:
+    struct myComparator {
+        bool operator() (string& a, string& b){
+
+            if (a != b){
+                int i = 0;
+                int j = 0;
+                while (a[i] == b[j]){
+                    if (i+1 == (int)a.size() && j+1 == (int)b.size())
+                        return i < j;
+                    
+                    if (i+1 < (int)a.size())
+                        i++;
+                    if (j+1 < (int)b.size())
+                        j++;
+                }
+
+                return a[i] > b[j];
+            }
+
+            return true;
+        }
+    };
+public:
+    string largestNumber(vector<int>& nums) {
+        if (nums.size() == 0)
+            return "";    
+        
+        vector<string> all;
+        for (int num : nums){
+            all.push_back(to_string(num));
+        }
+        
+        struct myComparator comp;
+        sort(all.begin(), all.end(), comp);
+        
+        string ans = "";
+        for (string elem : all)
+            ans.append(elem);
+        
+        return ans[0] == '0' ? "0" : ans;
+    }
+};
+// Time: O(N*log n), N characters and n numbers
+// Space: O(N)
+
 int main(){
-    vector<int> nums{3,30,34,5,9};
+    BetterSolution sol;
+    
+    vector<int> nums1{3,30,34,5,9};
+    assert(sol.largestNumber(nums1) == "9534330");
 
-    Solution sol;
-    cout << sol.largestNumber(nums) << endl;
+    vector<int> nums2{10,2};
+    assert(sol.largestNumber(nums2) == "210");
 
+    vector<int> nums3{9,99};
+    assert(sol.largestNumber(nums3) == "999");
+
+    vector<int> nums4{9,98};
+    assert(sol.largestNumber(nums4) == "998");
+
+    vector<int> nums5{0,0,0,0};
+    assert(sol.largestNumber(nums5) == "0");
+
+    vector<int> nums6{10,100,1000};
+    assert(sol.largestNumber(nums6) == "101001000");
+    cout << "Passed!" << endl;
     return 0;
 }
