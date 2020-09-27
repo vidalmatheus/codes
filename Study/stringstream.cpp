@@ -10,8 +10,9 @@ int main(){
     stringstream ss;
     ss.str(input);
 
+    cout << "\ninput: " << input << endl;
     while (getline(ss, item, ',')){
-        cout << item << endl;
+        cout << "item: " << item << endl;
     }
 
     ss.clear(); // you have to clear the stringstream to use it again
@@ -20,8 +21,9 @@ int main(){
     string input2 = "abacaxi maca pera banana";
     ss.str(input2);
 
+    cout << "\ninput: " << input2 << endl;
     while (getline(ss,item,' ')){
-        cout << item << endl;
+        cout << "item: " << item << endl;
     }
 
     ss.clear();
@@ -30,8 +32,9 @@ int main(){
     string input3 = "abracadabra";
     ss.str(input3);
 
+    cout << "\ninput: " << input3 << endl;
     while (getline(ss,item,'a')){
-        cout << item << endl;
+        cout << "item: " << item << endl;
     }
 
     return 0;
