@@ -44,7 +44,7 @@ void generatePattern(int n){
         q.push(curr+"1");
     }
 }
-// Time: O(n)
+// Time: O(2^n)
 // Space: O(log n)
 
 int main(){
