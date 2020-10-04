@@ -89,10 +89,11 @@ public:
         string word = "";
         for (int i=0;i<s.size();i++){
             word +=s[i];
-            if (dict.find(word)!=dict.end())
-            string str = s.substr(i+1);
+            if (dict.find(word)!=dict.end()){
+                string str = s.substr(i+1);
                 if (rec(str,dict))
                     return memo[s] = true;
+            }
         }
         
         return memo[s] = false;
@@ -101,11 +102,53 @@ public:
 // Time: O(n^2)
 // Space: O(m)
 
+class OtherSolution {
+private:
+    vector<int> memo;
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        if (s.size() == 0 && wordDict.size() > 0)
+            return false;
+        
+        if (s.size() > 0 && wordDict.size() == 0)
+            return false;
+        
+        if (s.size() == 0 && wordDict.size() == 0)
+            return true;
+        
+        unordered_set<string> dict;
+        for (string & w : wordDict)
+            dict.insert(w);
+        
+        memo.resize(s.size(),-1);
+        return rec(s,0,dict);
+    }
+    
+    bool rec(string& s, int start, unordered_set<string> dict){
+        if (start == s.size())
+            return true;
+        
+        if (memo[start] != -1)
+            return memo[start];
+        
+        for (int i=start;i<s.size();i++){
+            int len = i-start+1;
+            if (dict.find(s.substr(start,len)) != dict.end())
+                if (rec(s,i+1,dict))
+                    return memo[start] = true;
+        }
+        
+        return memo[start] = false;
+    }
+};
+// Time: O(n^2)
+// Space: O(n)
+
 int main(){
     string s = "leetcode";
     vector<string> wordDict{"leet","code"};
 
-    Solution sol;
+    OtherSolution sol;
     sol.wordBreak(s,wordDict) ? cout << "true\n" : cout << "false\n";
 
     return 0;
