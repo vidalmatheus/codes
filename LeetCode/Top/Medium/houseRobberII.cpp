@@ -42,6 +42,43 @@ public:
 // Time: O(n)
 // Space: O(1)
 
+class BetterSolution {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 0)
+            return 0;
+        
+        if (n == 1)
+            return nums[0];
+        
+        return max(robLinear(nums,0,n-2), robLinear(nums,1,n-1));
+    }
+    
+    int robLinear(vector<int>& nums, int start, int end){
+        int n = end-start+1;
+        if (n == 0)
+            return 0;
+        
+        if (n == 1)
+            return nums[start];
+        
+        vector<int> dp(n);
+        int prevPrev = 0;
+        int prev = nums[start];
+        int curr;
+        for (int i=start+1;i<=end;i++){
+            curr = max(prev, prevPrev + nums[i]);
+            prevPrev = prev;
+            prev = curr;
+        }
+        
+        return curr;
+    }
+};
+// Time: O(n)
+// Space: O(1)
+
 int main(){
     vector<int> nums = {1,2,1,1};
 
