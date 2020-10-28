@@ -23,13 +23,13 @@ public:
     int rob(TreeNode* root) {
         if (root == nullptr)
             return 0;
-        
+
         vector<int> levelSum;
         bfs(root,levelSum);
-        
+
         return robLinear(levelSum);
     }
-    
+
     void bfs(TreeNode* root, vector<int>& levelSum){
         queue<TreeNode*> q;
         q.push(root);
@@ -46,15 +46,15 @@ public:
             levelSum.push_back(sum);
         }
     }
-    
+
     int robLinear(vector<int>& nums){
         int n = nums.size();
         if (n == 0)
             return 0;
-        
+
         if (n == 1)
             return 1;
-        
+
         int pp = 0;
         int p = nums[0];
         int curr = 0;
@@ -63,7 +63,7 @@ public:
             pp = p;
             p = curr;
         }
-        
+
         return curr;
     }
 };
@@ -75,25 +75,25 @@ public:
     int rob(TreeNode* root) {
         if (root == nullptr)
             return 0;
-        
+
         return dfs(root, true);
     }
-    
+
     int dfs(TreeNode* root, bool can){
         if (root == nullptr)
             return 0;
-        
+
         if (can){
             // choosing
             int left = dfs(root->left, false);
             int right = dfs(root->right, false);
             int choosing = root->val + left + right;
-            
+
             // not choosing
             left = dfs(root->left, true);
             right = dfs(root->right, true);
             int notChoosing = left + right;
-            
+
             return max(choosing, notChoosing);
         }
         else return dfs(root->left, true) + dfs(root->right, true);
@@ -110,14 +110,14 @@ public:
     int rob(TreeNode* root) {
         if (root == nullptr)
             return 0;
-        
+
         return dfs(root, true);
     }
-    
+
     int dfs(TreeNode* root, bool can){
         if (root == nullptr)
             return 0;
-        
+
         if (can){
             if (canMemo.find(root) != canMemo.end())
                 return canMemo[root];
@@ -125,13 +125,13 @@ public:
                 // choosing
                 int left = dfs(root->left, false);
                 int right = dfs(root->right, false);
-                int choosing = root->val + left + right;   
-            
+                int choosing = root->val + left + right;
+
                 // not choosing
                 left = dfs(root->left, true);
                 right = dfs(root->right, true);
                 int notChoosing = left + right;
-                
+
                 return canMemo[root] = max(choosing, notChoosing);
             }
         }
@@ -155,7 +155,7 @@ int main(){
     root->right = new TreeNode(3);
     root->left->right = new TreeNode(3);
     root->right->right = new TreeNode(1);
-    
+
     assert(sol.rob(root) == 7);
     cout << "Passed!" << endl;
     return 0;

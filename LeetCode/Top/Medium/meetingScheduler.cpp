@@ -16,16 +16,16 @@ public:
         int m = slots2.size();
         if (n == 0 || m == 0)
             return {};
-        
+
         sort(slots1.begin(), slots1.end());
         sort(slots2.begin(), slots2.end());
-        
+
         int i = 0;
         int j = 0;
         while (i < n && j < m){
             int start1 = slots1[i][0];
             int end1 = slots1[i][1];
-            
+
             int start2 = slots2[j][0];
             int end2 = slots2[j][1];
 
@@ -33,12 +33,12 @@ public:
             int e = min(end1, end2);
             if (e - s >= duration)
                 return {s,s+duration};
-            
+
             if (end1 > end2)
                 j++;
             else i++;
         }
-        
+
         return {};
     }
 };
@@ -47,7 +47,7 @@ public:
 
 int main(){
     Solution sol;
-    
+
     vector<vector<int>> slots1{{10,50},{60,120},{140,210}};
     vector<vector<int>> slots2{{0,15},{60,70}};
     int duration = 8;
@@ -65,7 +65,7 @@ int main(){
     duration = 456085;
     ans = {98730764,99186849};
     assert(sol.minAvailableDuration(slots1, slots2, duration) == ans);
-    
+
     cout << "Passed!" << endl;
     return 0;
 }

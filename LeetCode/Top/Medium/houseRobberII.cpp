@@ -14,15 +14,15 @@ public:
     int rob(vector<int>& nums) {
         if (nums.size()==0)
             return 0;
-        
+
         if (nums.size()==1)
             return nums[0];
-        
+
         int n = nums.size();
-        
+
         return max(rob(nums,0,n-2,1),rob(nums,n-1,1,-1)); // rob the first house and not the last or rob the last and not the first
     }
-    
+
     int rob(vector<int>& nums, int start, int end, int dir){
         int size = abs(end-start)+1;
         if (size==1) return nums[start];
@@ -48,21 +48,21 @@ public:
         int n = nums.size();
         if (n == 0)
             return 0;
-        
+
         if (n == 1)
             return nums[0];
-        
+
         return max(robLinear(nums,0,n-2), robLinear(nums,1,n-1));
     }
-    
+
     int robLinear(vector<int>& nums, int start, int end){
         int n = end-start+1;
         if (n == 0)
             return 0;
-        
+
         if (n == 1)
             return nums[start];
-        
+
         vector<int> dp(n);
         int prevPrev = 0;
         int prev = nums[start];
@@ -72,7 +72,7 @@ public:
             prevPrev = prev;
             prev = curr;
         }
-        
+
         return curr;
     }
 };

@@ -15,9 +15,9 @@ public:
     int twoSumLessThanK(vector<int>& A, int K) {
         if (A.size() == 0)
             return 0;
-    
+
         sort(A.begin(),A.end());
-        
+
         int left = 0;
         int right = A.size()-1;
         int s = -1;
@@ -30,7 +30,7 @@ public:
                 right--;
             }
         }
-        
+
         return s;
     }
 };

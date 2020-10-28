@@ -15,7 +15,7 @@ public:
     bool buddyStrings(string A, string B) {
         if (A.size() != B.size())
             return false;
-        
+
         int n = A.size();
         vector<int> freqA(26,0);
         vector<int> freqB(26,0);
@@ -29,20 +29,20 @@ public:
             if (freqB[B[i]-'a'] > 1)
                 repeatedB = true;
         }
-        
+
         if (freqA != freqB)
             return false;
-        
+
         vector<int> pos;
         for (int i=0;i<n;i++){
             if (A[i] != B[i]){
                 pos.push_back(i);
             }
         }
-        
+
         if (pos.size() == 2 && A[pos[0]] == B[pos[1]] && B[pos[0]] == A[pos[1]])
             return true;
-        
+
         if (A == B and repeatedA and repeatedB)
             return true;
 
@@ -54,7 +54,7 @@ public:
 
 int main(){
     Solution sol;
-    
+
     string A = "ab";
     string B = "ba";
     assert(sol.buddyStrings(A,B) == true);

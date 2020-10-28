@@ -15,12 +15,12 @@ public:
     vector<vector<int>> highFive(vector<vector<int>>& items) {
         if (items.size() == 0)
             return {};
-        
+
         unordered_map<int, priority_queue<int, vector<int>, greater<int>>> map;
         for(auto item : items){
             int id = item[0];
             int grade = item[1];
-            
+
             if (map[id].size() < 5)
                 map[id].push(grade);
             else if (grade > map[id].top()) {
@@ -28,7 +28,7 @@ public:
                 map[id].push(grade);
             }
         }
-        
+
         vector<vector<int>> ans;
         for (auto elem : map){
             int sum = 0;
@@ -39,9 +39,9 @@ public:
             }
             ans.push_back({elem.first, sum/5});
         }
-        
+
         sort(ans.begin(),ans.end());
-        
+
         return ans;
     }
 };

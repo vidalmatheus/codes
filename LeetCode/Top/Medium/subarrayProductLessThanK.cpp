@@ -15,26 +15,26 @@ public:
     int numSubarrayProductLessThanK(vector<int>& nums, int k) {
         if (nums.size() == 0)
             return 0;
-        
+
         if (k <= 1)
             return 0;
-        
+
         int left = 0;
         int right = 0;
         int product = 1;
         int counter = 0;
         while (right < nums.size()){
             product *= nums[right];
-            
+
             while (product >= k){
                 product /= nums[left];
                 left++;
             }
-            
+
             counter += right-left+1;
-            right++;        
+            right++;
         }
-        
+
         return counter;
     }
 };
@@ -43,7 +43,7 @@ public:
 
 int main(){
     Solution sol;
-    
+
     vector<int> nums1{10, 5, 2, 6};
     int k1 = 100;
     assert(sol.numSubarrayProductLessThanK(nums1,k1) == 8);
