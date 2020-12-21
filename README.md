@@ -1,2 +1,2 @@
 # codes
-My leetcode solutions and overall studies of Algorithm and Data Structures.
+My leetcode solutions and overall studies of Data Structures and Algorithms.
